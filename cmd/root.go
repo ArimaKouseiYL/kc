@@ -5,7 +5,6 @@ Copyright © 2022 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
-	"fmt"
 	"kc/cmd/create"
 	delete2 "kc/cmd/delete"
 	"kc/cmd/get"
@@ -40,14 +39,4 @@ func init() {
 	rootCmd.AddCommand(create.NewCmdCreate())
 	rootCmd.AddCommand(delete2.NewCmdDelete())
 	rootCmd.AddCommand(get.NewCmdGet())
-}
-
-func Common(args []string) (string, bool) {
-	resource := ""
-	if len(args) == 0 {
-		fmt.Println("You must specify the type of resource to get. eg：kc get po")
-		return "", true
-	}
-	resource = args[0]
-	return resource, false
 }

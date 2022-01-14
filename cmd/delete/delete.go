@@ -5,8 +5,8 @@ Copyright © 2022 NAME HERE <EMAIL ADDRESS>
 package delete
 
 import (
+	"fmt"
 	"github.com/spf13/cobra"
-	cmd2 "kc/cmd"
 )
 
 // deleteCmd represents the delete command
@@ -21,10 +21,12 @@ func NewCmdDelete() *cobra.Command {
 `,
 		Run: func(cmd *cobra.Command, args []string) {
 
-			resource, done := cmd2.Common(args)
-			if done {
+			resource := ""
+			if len(args) == 0 {
+				fmt.Println("You must specify the type of resource to get. eg：kc get po")
 				return
 			}
+			resource = args[0]
 
 			if resource == "pods" || resource == "pod" || resource == "po" {
 
@@ -34,6 +36,10 @@ func NewCmdDelete() *cobra.Command {
 				}
 
 				namespace, _ := cmd.Flags().GetString("namespace")
+
+				if namespace == "" {
+					namespace = "default"
+				}
 
 				deletePod(podName, namespace)
 			}

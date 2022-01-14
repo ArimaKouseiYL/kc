@@ -8,7 +8,6 @@ import (
 	"fmt"
 	"github.com/spf13/cobra"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	cmd2 "kc/cmd"
 	"kc/config"
 	"kc/k8s"
 )
@@ -29,10 +28,12 @@ Examples:
 `,
 		Run: func(cmd *cobra.Command, args []string) {
 
-			resource, done := cmd2.Common(args)
-			if done {
+			resource := ""
+			if len(args) == 0 {
+				fmt.Println("You must specify the type of resource to get. eg：kc get po")
 				return
 			}
+			resource = args[0]
 
 			if resource == "pods" || resource == "pod" || resource == "po" {
 
@@ -41,7 +42,10 @@ Examples:
 					podName = args[1]
 				}
 
-				namespace, _ := cmd.Flags().GetString("namespace")
+				namespace, err := cmd.Flags().GetString("namespace")
+				if err != nil {
+					return
+				}
 
 				output, err := cmd.Flags().GetString("output")
 				if err != nil {
