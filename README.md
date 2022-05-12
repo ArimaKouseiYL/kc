@@ -1,19 +1,21 @@
 # kc
-这是一个操作k8s api的client工具，可以类似kubectl去操作kubernetets资源
+这是一个操作k8s api的client工具，可以类似kubectl去操作`kubernetes`资源
 
 ## Prepare
 如下是windows中编译的过程：
 
 1.打开Terminal 执行命令：
+```shell
 set GOARCH=amd64
 set GOOS=linux
-go build xx.go
+go build
+```
 
 2.会生成一个没有后缀的xx二进制文件
 
 3.将该文件放入linux系统/usr/local/bin目录下
 
-4.赋予权限 chmod 777 xx
+4.赋予权限 chmod +x xx
 
 5.执行 ./xx
 
